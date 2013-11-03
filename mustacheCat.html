@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Mustaches on Kittens!</title>
+</head>
+<body>
+<h1><b>Mustache Cat!</b></h1>
+  Click the image to put a mustache on the kitten!
+  <p>
+  <input type="button" onClick="location.reload()" value="Restart">
+  <p>
+  <input type="submit" onClick="mustacheKitten()" value="Gimme another kitten">
+<!--   <p>
+  <div id="info"></div>  --> 
+</body>
+</html>
+
+<script>
+
+//var kittenImg = document.createElement('img');
+//var kittenImg2 = document.createElement('img');
+//kittenImg2.src = "http://placekitten.com/" + Math.floor((Math.random()*50)+1)+10 + "/" + Math.floor((Math.random()*50)+1)+10;
+
+var mustacheKitten = function(){
+  var imagesNumber = document.querySelectorAll('.kitten').length;
+  console.log(imagesNumber);
+  if (imagesNumber > 2){
+    alert("Sorry, you're out of kittens!");
+  }
+  else {
+    var kittenImg = document.createElement('img');
+    kittenImg.src = "http://placekitten.com/" + ((Math.floor((Math.random()*100)+1))+300) + "/" + ((Math.floor((Math.random()*100)+1))+300);
+    kittenImg.className = "kitten";
+    kittenImg.style.marginLeft = "10px"; 
+    kittenImg.style.marginRight = "10px"; 
+    document.body.appendChild(kittenImg);
+    kittenImg.addEventListener('click', onClick, false);
+  }
+
+    function onClick(e) {
+      var moImg = document.createElement("img");
+      moImg.src = "http://fc03.deviantart.net/fs71/f/2012/243/a/0/mustache_png____by_yazsexydilemma-d5d3enz.png";
+      moImg.style.position = "absolute";
+      moImg.style.width = "100px";
+      moImg.style.height = "100px";
+      moImg.style.left = e.clientX -50 + "px";
+      moImg.style.top = e.clientY -50 + "px";
+      document.body.appendChild(moImg);
+    }
+}
+
+mustacheKitten()
+  </script>
+
