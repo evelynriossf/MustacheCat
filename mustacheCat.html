@@ -11,42 +11,46 @@
   <input type="button" onClick="location.reload()" value="Restart">
   <p>
   <input type="submit" onClick="mustacheKitten()" value="Gimme another kitten">
-<!--   <p>
-  <div id="info"></div>  --> 
-</body>
+  <p>
+<!-- <canvas>Your browser does not support the HTML5 canvas tag.</canvas>
+ --></body>
 </html>
 
 <script>
 
-//var kittenImg = document.createElement('img');
-//var kittenImg2 = document.createElement('img');
-//kittenImg2.src = "http://placekitten.com/" + Math.floor((Math.random()*50)+1)+10 + "/" + Math.floor((Math.random()*50)+1)+10;
-
 var mustacheKitten = function(){
-  var imagesNumber = document.querySelectorAll('.kitten').length;
+var imagesNumber = document.querySelectorAll('canvas').length;
   console.log(imagesNumber);
   if (imagesNumber > 2){
     alert("Sorry, you're out of kittens!");
   }
   else {
+    var c=document.createElement("canvas");
+    c.width = "400";
+    c.height = "400";
+    document.getElementsByTagName("body")[0].appendChild(c);
+    var ctx=c.getContext("2d");
     var kittenImg = document.createElement('img');
     kittenImg.src = "http://placekitten.com/" + ((Math.floor((Math.random()*100)+1))+300) + "/" + ((Math.floor((Math.random()*100)+1))+300);
     kittenImg.className = "kitten";
     kittenImg.style.marginLeft = "10px"; 
     kittenImg.style.marginRight = "10px"; 
-    document.body.appendChild(kittenImg);
-    kittenImg.addEventListener('click', onClick, false);
+    kittenImg.onload=function(){
+      ctx.drawImage(kittenImg,10,10);
+    }
+    c.addEventListener('click', onClick, false);
   }
 
     function onClick(e) {
       var moImg = document.createElement("img");
       moImg.src = "http://fc03.deviantart.net/fs71/f/2012/243/a/0/mustache_png____by_yazsexydilemma-d5d3enz.png";
       moImg.style.position = "absolute";
-      moImg.style.width = "100px";
-      moImg.style.height = "100px";
-      moImg.style.left = e.clientX -50 + "px";
-      moImg.style.top = e.clientY -50 + "px";
-      document.body.appendChild(moImg);
+      offsetX = c.offsetLeft;
+      offsetY = c.offsetTop;
+      console.log(e.clientX, e.clientY, offsetX, offsetY);
+      moImg.onload=function(){
+    ctx.drawImage(moImg, (e.clientX - offsetX -50), (e.clientY - offsetY -50), 100, 100);
+  }
     }
 }
 
