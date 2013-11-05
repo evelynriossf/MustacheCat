@@ -12,46 +12,32 @@
   <p>
   <input type="submit" onClick="mustacheKitten()" value="Gimme another kitten">
   <p>
-<!-- <canvas>Your browser does not support the HTML5 canvas tag.</canvas>
- --></body>
+  </body>
 </html>
 
 <script>
 
 var mustacheKitten = function(){
-var imagesNumber = document.querySelectorAll('canvas').length;
-  console.log(imagesNumber);
-  if (imagesNumber > 2){
-    alert("Sorry, you're out of kittens!");
+  var c=document.createElement("canvas");
+  c.width = "400";
+  c.height = "400";
+  c.innerHTML = "Your browser does not support the HTML5 canvas tag.";
+  document.getElementsByTagName("body")[0].appendChild(c);
+  var ctx=c.getContext("2d");
+  var kittenImg = document.createElement('img');
+  kittenImg.src = "http://placekitten.com/" + ((Math.floor((Math.random()*100)+1))+300) + "/" + ((Math.floor((Math.random()*100)+1))+300);
+  kittenImg.onload=function(){
+    ctx.drawImage(kittenImg,10,10);
   }
-  else {
-    var c=document.createElement("canvas");
-    c.width = "400";
-    c.height = "400";
-    document.getElementsByTagName("body")[0].appendChild(c);
-    var ctx=c.getContext("2d");
-    var kittenImg = document.createElement('img');
-    kittenImg.src = "http://placekitten.com/" + ((Math.floor((Math.random()*100)+1))+300) + "/" + ((Math.floor((Math.random()*100)+1))+300);
-    kittenImg.className = "kitten";
-    kittenImg.style.marginLeft = "10px"; 
-    kittenImg.style.marginRight = "10px"; 
-    kittenImg.onload=function(){
-      ctx.drawImage(kittenImg,10,10);
-    }
-    c.addEventListener('click', onClick, false);
-  }
+  c.addEventListener('click', onClick, false);
 
-    function onClick(e) {
-      var moImg = document.createElement("img");
-      moImg.src = "http://fc03.deviantart.net/fs71/f/2012/243/a/0/mustache_png____by_yazsexydilemma-d5d3enz.png";
-      moImg.style.position = "absolute";
-      offsetX = c.offsetLeft;
-      offsetY = c.offsetTop;
-      console.log(e.clientX, e.clientY, offsetX, offsetY);
-      moImg.onload=function(){
-    ctx.drawImage(moImg, (e.clientX - offsetX -50), (e.clientY - offsetY -50), 100, 100);
-  }
+  function onClick(e) {
+    var moImg = document.createElement("img");
+    moImg.src = "http://fc03.deviantart.net/fs71/f/2012/243/a/0/mustache_png____by_yazsexydilemma-d5d3enz.png";
+    moImg.onload=function(){
+      ctx.drawImage(moImg, (e.layerX - 50), (e.layerY - 50), 100, 100);
     }
+  }
 }
 
 mustacheKitten()
